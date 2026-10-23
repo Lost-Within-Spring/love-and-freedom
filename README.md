@@ -4,8 +4,7 @@
 
 ## 在线访问
 
-启用 GitHub Pages 后：https://lost-within-spring.github.io/-/
-
+启用 GitHub Pages 后：https://lost-within-spring.github.io/love-and-freedom/
 ## 本地预览
 
 直接用浏览器打开 `index.html` 即可，无需构建、无依赖。
