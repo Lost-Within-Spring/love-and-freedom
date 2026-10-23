@@ -4,7 +4,7 @@
 
 ## 在线访问
 
-https://86151.github.io/AbstractWeb/
+启用 GitHub Pages 后：https://lost-within-spring.github.io/-/
 
 ## 本地预览
 
