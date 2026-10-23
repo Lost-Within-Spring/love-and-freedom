@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>天平两端的爱与自由 · 文摘收集</title>
+<meta name="description" content="关于爱情与自由的文学文摘：从游吟诗人到昆德拉，从罗密欧到重庆森林。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf9f6;
+  --ink:#1d1a16;
+  --ink-2:#4a453d;
+  --ink-3:#8a8478;
+  --line:#e4dfd6;
+  --cinnabar:#9e3b2e;
+  --ease:cubic-bezier(.22,.61,.21,1);
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Menlo,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.95;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+::selection{background:var(--cinnabar);color:var(--paper)}
+
+/* ---------- header ---------- */
+#progress-line{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--ink);z-index:60}
+header{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;
+  background:linear-gradient(to bottom,rgba(250,249,246,.96),rgba(250,249,246,.85));
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(6px);
+}
+.brand{font-weight:900;font-size:15px;letter-spacing:.12em}
+.brand em{font-style:normal;color:var(--cinnabar)}
+.hmeta{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em}
+#pct{color:var(--ink)}
+
+/* ---------- chapter rail (desktop) ---------- */
+#rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:14px}
+#rail a{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink-3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;opacity:.55;transition:opacity .4s var(--ease)}
+#rail a i{width:6px;height:6px;border:1px solid var(--ink-3);border-radius:50%;display:block;transition:all .4s var(--ease)}
+#rail a span{opacity:0;transform:translateX(-4px);transition:all .4s var(--ease);white-space:nowrap}
+#rail a:hover span{opacity:1;transform:none}
+#rail a.on{opacity:1;color:var(--ink)}
+#rail a.on i{background:var(--cinnabar);border-color:var(--cinnabar)}
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:120px 24px 80px;position:relative;
+}
+.hero .watermark{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;padding:0 6vw;pointer-events:none;overflow:hidden}
+.hero .watermark b{font-weight:900;font-size:clamp(160px,30vw,380px);color:var(--ink);opacity:.045;line-height:1}
+.hero-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.35em;color:var(--ink-3);margin-bottom:28px}
+.hero h1{font-size:clamp(34px,6.4vw,72px);font-weight:900;letter-spacing:.06em;line-height:1.3}
+.hero h1 .accent{color:var(--cinnabar)}
+.hero .byline{margin-top:26px;font-size:14px;color:var(--ink-2);letter-spacing:.2em}
+.hero .byline b{font-weight:600}
+.hero .opening{max-width:560px;margin-top:44px;font-size:16px;color:var(--ink-2);line-height:2.1;text-align:justify}
+.hero .cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--ink-3);display:flex;flex-direction:column;align-items:center;gap:10px}
+.hero .cue::after{content:"";width:1px;height:44px;background:linear-gradient(var(--ink-3),transparent);animation:drip 2.2s var(--ease) infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- story layout ---------- */
+.story{display:grid;grid-template-columns:minmax(0,46%) minmax(0,54%);position:relative}
+.scale-panel{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;border-right:1px solid var(--line);padding:80px 24px 40px}
+#scale-svg{width:min(88%,440px);height:auto;overflow:visible}
+.scale-state{margin-top:26px;text-align:center}
+.scale-state .ss-ch{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--cinnabar);margin-bottom:8px;min-height:14px}
+.scale-state .ss-cap{font-size:15px;color:var(--ink-2);letter-spacing:.12em;min-height:26px;transition:opacity .5s var(--ease)}
+.scale-meter{margin-top:20px;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.15em}
+.scale-meter .track{width:120px;height:1px;background:var(--line);position:relative}
+.scale-meter .needle{position:absolute;top:-3px;left:50%;width:1px;height:7px;background:var(--ink);transition:transform 1s var(--ease)}
+
+.steps{padding:0 clamp(24px,5vw,84px)}
+.chapter{padding:16vh 0 12vh;border-bottom:1px solid var(--line)}
+.chapter:last-child{border-bottom:none}
+.step{margin-bottom:11vh;opacity:0;transform:translateY(26px);filter:blur(6px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+.step.in{opacity:1;transform:none;filter:none}
+.ch-head{margin-bottom:9vh}
+.ch-head .num{font-family:var(--mono);font-size:11px;letter-spacing:.35em;color:var(--cinnabar);display:block;margin-bottom:16px}
+.ch-head h2{font-size:clamp(26px,3.2vw,38px);font-weight:900;letter-spacing:.05em;line-height:1.4}
+.ch-head .work{margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);letter-spacing:.12em}
+.step p{margin-bottom:1.6em;text-align:justify;color:var(--ink)}
+.step p:last-child{margin-bottom:0}
+.dropcap::first-letter{font-size:3.1em;font-weight:900;float:left;line-height:1.02;padding:.06em .14em 0 0;color:var(--ink)}
+blockquote{
+  margin:2.2em 0;padding:0 0 0 26px;border-left:2px solid var(--cinnabar);
+  font-size:clamp(18px,1.7vw,21px);font-weight:600;line-height:1.9;letter-spacing:.02em;
+}
+blockquote cite{display:block;margin-top:14px;font-style:normal;font-family:var(--mono);font-weight:400;font-size:11px;color:var(--ink-3);letter-spacing:.12em}
+
+/* ---------- index / timeline ---------- */
+.index-sec{padding:18vh clamp(24px,8vw,120px);border-top:1px solid var(--line);max-width:1100px;margin:0 auto}
+.index-sec .num{font-family:var(--mono);font-size:11px;letter-spacing:.35em;color:var(--cinnabar);display:block;margin-bottom:16px}
+.index-sec h2{font-size:clamp(26px,3.4vw,40px);font-weight:900;letter-spacing:.05em;margin-bottom:8vh}
+.tl{border-top:1px solid var(--ink)}
+.tl a{
+  display:grid;grid-template-columns:110px 1fr auto;gap:18px;align-items:baseline;
+  padding:22px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);
+  transition:background .4s var(--ease),padding-left .4s var(--ease);
+}
+.tl a:hover{background:#f3f0ea;padding-left:14px}
+.tl .era{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);letter-spacing:.06em}
+.tl .name{font-weight:600;font-size:16.5px;letter-spacing:.03em}
+.tl .name small{display:block;font-weight:400;font-size:12.5px;color:var(--ink-2);margin-top:4px;letter-spacing:.02em}
+.tl .go{font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.2em}
+.tl a:hover .go{color:var(--cinnabar)}
+
+/* ---------- colophon ---------- */
+.colophon{padding:16vh 24px 14vh;text-align:center;border-top:1px solid var(--line)}
+.colophon .big{font-size:clamp(22px,3vw,32px);font-weight:900;letter-spacing:.08em;line-height:1.8;max-width:640px;margin:0 auto}
+.colophon .big .accent{color:var(--cinnabar)}
+.colophon .note{margin-top:44px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.18em;line-height:2.2}
+
+/* ---------- reveal util ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- mobile ---------- */
+@media (max-width:880px){
+  #rail{display:none}
+  header{padding:12px 18px}
+  .story{display:block}
+  .scale-panel{
+    top:44px;height:auto;z-index:30;flex-direction:row;align-items:center;gap:14px;
+    padding:10px 18px;border-right:none;border-bottom:1px solid var(--line);
+    background:rgba(250,249,246,.94);backdrop-filter:blur(6px);
+  }
+  #scale-svg{width:108px;flex:none}
+  .scale-state{margin-top:0;text-align:left;flex:1}
+  .scale-state .ss-cap{font-size:13px}
+  .scale-meter{display:none}
+  .steps{padding:0 22px}
+  .chapter{padding:12vh 0 10vh}
+  .step{margin-bottom:9vh}
+  .tl a{grid-template-columns:84px 1fr;gap:12px}
+  .tl .go{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .step,.reveal{transition:none;opacity:1;transform:none;filter:none}
+  .hero .cue::after{animation:none}
+}
+</style>
+<noscript><style>.step,.reveal{opacity:1!important;transform:none!important;filter:none!important}</style></noscript>
+</head>
+<body>
+<div id="progress-line"></div>
+<header>
+  <div class="brand">天平两端<em>·</em>文摘</div>
+  <div class="hmeta"><span id="pct">0</span>% READ</div>
+</header>
+<nav id="rail" aria-label="章节导航"></nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="watermark" aria-hidden="true"><b>轻</b><b>重</b></div>
+  <div class="hero-kicker">READING DIGEST · 文 摘 收 集</div>
+  <h1>天平两端的<br><span class="accent">爱</span>与<span class="accent">自由</span></h1>
+  <div class="byline">原文 · <b>闫力元</b>　｜　摘自《不能承受的生命之轻》读札</div>
+  <p class="opening">重是必然，是永恒轮回的沉重负担；轻是偶然，是自由与无意义，是灿烂轻盈的美丽。米兰·昆德拉向读者提问——但是，是重真的残酷，而轻便真的美丽？</p>
+  <div class="cue">SCROLL</div>
+</section>
+
+<!-- ================= STORY ================= -->
+<div class="story">
+
+  <!-- sticky scale panel -->
+  <div class="scale-panel">
+    <svg id="scale-svg" viewBox="0 0 400 330" role="img" aria-label="天平：左盘为爱与重，右盘为自由与轻">
+      <!-- pedestal -->
+      <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+        <path d="M168 300 L232 300"/>
+        <path d="M180 300 L193 126 L207 126 L220 300" fill="var(--paper)"/>
+      </g>
+      <!-- beam (rotated by JS) -->
+      <g id="beam" stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+        <line x1="76" y1="120" x2="324" y2="120"/>
+        <circle cx="76" cy="120" r="3.5" fill="var(--ink)"/>
+        <circle cx="324" cy="120" r="3.5" fill="var(--ink)"/>
+      </g>
+      <!-- pivot -->
+      <circle cx="200" cy="120" r="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+      <circle cx="200" cy="120" r="1.8" fill="var(--ink)"/>
+      <path d="M200 108 L200 96" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="200" cy="93" r="3" fill="var(--cinnabar)"/>
+      <!-- left pan : 爱 · 重 -->
+      <g id="panL">
+        <g stroke="var(--ink)" stroke-width="1.6" fill="none" stroke-linecap="round">
+          <line x1="0" y1="0" x2="-26" y2="58"/>
+          <line x1="0" y1="0" x2="26" y2="58"/>
+          <path d="M-30 58 Q0 78 30 58" fill="var(--paper)"/>
+          <path d="M-30 58 L30 58"/>
+        </g>
+        <text y="102" text-anchor="middle" font-size="15" font-weight="900" fill="var(--ink)" font-family="var(--serif)">爱 · 重</text>
+      </g>
+      <!-- right pan : 自由 · 轻 -->
+      <g id="panR">
+        <g stroke="var(--ink)" stroke-width="1.6" fill="none" stroke-linecap="round">
+          <line x1="0" y1="0" x2="-26" y2="58"/>
+          <line x1="0" y1="0" x2="26" y2="58"/>
+          <path d="M-30 58 Q0 78 30 58" fill="var(--paper)"/>
+          <path d="M-30 58 L30 58"/>
+        </g>
+        <text y="102" text-anchor="middle" font-size="15" font-weight="900" fill="var(--ink)" font-family="var(--serif)">自由 · 轻</text>
+      </g>
+    </svg>
+    <div class="scale-state">
+      <div class="ss-ch" id="ss-ch">PROLOGUE · 序</div>
+      <div class="ss-cap" id="ss-cap">天平尚未倾斜</div>
+      <div class="scale-meter">
+        <span>重</span>
+        <div class="track"><div class="needle" id="needle"></div></div>
+        <span>轻</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- steps column -->
+  <div class="steps" id="steps">
+
+    <section class="chapter" id="ch-0" data-title="序 · 轻与重之问">
+      <div class="step" data-tilt="0" data-sway="0.6" data-ch="PROLOGUE · 序" data-cap="天平尚未倾斜">
+        <div class="ch-head">
+          <span class="num">CHAPTER 00 — PROLOGUE</span>
+          <h2>轻与重之问</h2>
+          <div class="work">米兰·昆德拉《不能承受的生命之轻》 · 1984</div>
+        </div>
+        <p class="dropcap">米兰·昆德拉的《不能承受的生命之轻》开篇给出了一对含义相对的词：轻与重。重是必然，是永恒轮回的沉重负担；轻是偶然，是自由与无意义，是灿烂轻盈的美丽。米兰·昆德拉向读者提问：“但是，是重真的残酷，而轻便真的美丽？”</p>
+      </div>
+      <div class="step" data-tilt="0" data-sway="1.0" data-ch="PROLOGUE · 序" data-cap="重是必然，轻是偶然">
+        <p>关于轻与重的辩证，放在主线爱情故事中，体现为托马斯在萨宾娜和特蕾莎两个女性之间的摇摆。萨宾娜是自由主义者，也是开放的情人，她不要求托马斯给予任何承诺，他们的结合是生命之轻，自由轻盈，无所依傍；特蕾莎是忠实的爱人，也要求托马斯的忠诚，他们的爱情是建立在爱之上的沉重责任，要求彼此牺牲，也指向永恒。托马斯在这样两种爱情之间徘徊，当两个人的结合以一种轻盈的形式出现，彼此毫无责任的羁绊时，这是不是能够称作爱情？而当爱情带来的责任重负不可承担时，是否还要坚持这人为建构的永恒爱情的想象？他所体验到的，便是这样一种爱情中“轻与重”的矛盾。</p>
+      </div>
+      <div class="step" data-tilt="2" data-sway="1.2" data-ch="PROLOGUE · 序" data-cap="是重真的残酷，轻便真的美丽？">
+        <p>这在某种程度上让人难以理解，曾经爱情以这样一种样貌出现：爱是突破罗网，是反抗规约，爱是两个自由灵魂的自由结合，也是人的自由精神与主体性的显现。什么时候起，爱变成了“生命不可承受之重”，变成了个人自由独立的重负？在不同的时代里爱情有哪些不同的面目？我们又应该如何理解如今时代里爱情与自由的关系？</p>
+      </div>
+    </section>
+    <section class="chapter" id="ch-1" data-title="一 · 爱曾是信仰">
+      <div class="step" data-tilt="5" data-sway="0.8" data-ch="CHAPTER 01" data-cap="爱开始向自由一侧倾斜">
+        <div class="ch-head">
+          <span class="num">CHAPTER 01 — FAITH</span>
+          <h2>爱曾是信仰</h2>
+          <div class="work">从《圣经》到普罗旺斯游吟诗人 · 12—13 世纪</div>
+        </div>
+        <p class="dropcap">就像许多概念一样，“爱”并非一成不变的东西。如今我们理解的浪漫爱情是一种关乎两个个体之间的情感，但在西方社会，很长一段时间里，“爱”指向更普遍的绝对情感，与宗教信仰密不可分。“爱”在《圣经》中被看作一种神圣与道德的力量，“爱是你全部的需要，只有通过爱才能从无意义的深渊中获得拯救。爱上帝，爱邻人，这里的“爱”是种普世的情感，是高尚的道德价值。因此，当宗教在现代社会祛魅之后，爱的价值意义的重重来源也被抽空。“上帝死了”，意味着宗教意义的“爱”也失去了根基，现代人理解的浪漫主义的爱随之成为了新的世俗信仰。我们看到现代社会中许多人如此重视浪漫的爱情，甚至将其视作生命中最重要的意义，以那种刻骨铭心的形态，这在过去的某些时代大概难以想象，这便是这种“信仰”的外在显露。</p>
+      </div>
+      <div class="step" data-tilt="8" data-sway="0.8" data-ch="CHAPTER 01" data-cap="婚姻是束缚，爱是自由给予">
+        <p>所以浪漫的爱也与其渊源，不同于基督教中被道德化的“爱”，浪漫的爱开始以一种逾越世俗伦理的形态出现，与12、13世纪普罗旺斯和法国南部的游吟诗人所歌颂的“典雅爱情”密切相关。这种“典雅爱情”实质上是一种背德之爱，往往描述自己对已婚贵妇的渴盼痴情。据说1174年香槟女伯爵颁布的“纯真爱情的艺术”，是这种爱情模式最典型的体现：</p>
+        <blockquote>我们断断续续地相信，在两个具有婚姻关系的男女之间不可能存在爱。爱需要双方自由地给予，不带有任何强迫和束缚；而以婚姻关系结合的男女对彼此负有责任，一定为照顾对方的需求而克制自己。<cite>—— 据说为 1174 年香槟女伯爵颁布的「纯真爱情的艺术」</cite></blockquote>
+      </div>
+      <div class="step" data-tilt="11" data-sway="0.7" data-ch="CHAPTER 01" data-cap="爱成为新的宗教">
+        <p>可以看出，在浪漫的爱的源头处，爱情与“自由”密切捆绑，爱是双方的自由给予，连婚姻关系都是一种束缚。这就是浪漫主义的爱的发端。而现代人理解的浪漫主义爱情，实际上是由萨等人所呈现的那种启蒙浪漫主义的爱。根据西蒙·梅在《爱的历史》中的研究，这种爱由两个主题来定义，一是通过爱探寻“自我”的存在，在这种“自我”表达的是我的自由；二是情感本质的神圣性，激情同样可能是善与真的理想，可以从中窥见神性。而爱的囿者也从偏重被爱者转向了爱人者，爱的对象是爱本身。爱成为新的宗教，如施莱格尔所说：“在恋人们孤独的拥抱中，感官愉悦再一次呈现它最根本的意义：自然最神圣的奇迹。”</p>
+      </div>
+      <div class="step" data-tilt="12" data-sway="0.6" data-ch="CHAPTER 01" data-cap="追寻爱情，就是追寻自由">
+        <p>可见，在这种“爱”的想象中，爱与自由、自我、个人这些概念密不可分，并且与善、真理、自然这些大命题息息相关。自我意识觉醒了，人类成为自由的个体，现代意义上的浪漫爱情只有在这样的情形下才成为可能。爱的发明与个人自我的觉醒相关联。因此，我们在文艺复兴乃至启蒙运动之后的现实主义和浪漫主义文学之中见到的那种爱情，常常与对自由的追寻密切相关。追寻爱情，就是追寻自由。</p>
+      </div>
+    </section>
+    <section class="chapter" id="ch-2" data-title="二 · 飞跃围墙">
+      <div class="step" data-tilt="14" data-sway="0.5" data-ch="CHAPTER 02" data-cap="自由的一侧，重重落下">
+        <div class="ch-head">
+          <span class="num">CHAPTER 02 — THE WALL</span>
+          <h2>飞跃围墙的「浪漫之爱」</h2>
+          <div class="work">莎士比亚《罗密欧与朱丽叶》 · 约 1595</div>
+        </div>
+        <p class="dropcap">《罗密欧与朱丽叶》中，爱意味着冲破世俗的成见和家族仇恨的阻隔。罗密欧与朱丽叶是两个有着世仇大家族的子女，却在一次舞会上相遇，一见钟情，他们在普良的神父的主持下私密结婚，但很快，两个家族又一次发生冲突，这次冲突中，罗密欧为给朱丽叶的堂兄报仇，杀死了朱丽叶的堂兄提伯尔特，因此被城邦放逐。罗密欧走后，朱丽叶被母亲强迫要求嫁给伯爵的帕里斯伯爵。神父为帮朱丽叶逃婚，想出一个假死的计策，然而罗密欧真的相信朱丽叶去世，并服毒药“殉情”，朱丽叶醒来后也悲痛欲绝地自杀。两个人的爱情走向悲剧。</p>
+      </div>
+      <div class="step" data-tilt="16" data-sway="0.4" data-ch="CHAPTER 02" data-cap="爱以自由之名，飞越围墙">
+        <p>在这个浪漫故事中，家族仇恨成为男女主人公爱情的最大阻碍，就像朱丽叶家的院墙与罗密欧的姓氏。因此，重新看回他们私定终生的情节，就会品尝出更多的意味，罗密欧在表白时说：“我借着爱的轻翼飞过围墙，因为砖石的墙是不能把爱情阻隔的；爱情的力量所能够做到的，它都会冒险尝试，所以我不怕你家里人的干涉。”朱丽叶说：“可是这些虚伪礼，现在只好一切置之不顾了。”在他们的心中，家族的仇恨与世俗的礼教是爱情的反面，为了爱情，他们可以将这一切置之不顾。他们的爱情完全是基于个人意志的结合。</p>
+      </div>
+    </section>
+    <section class="chapter" id="ch-3" data-title="三 · 规约与个性之间">
+      <div class="step" data-tilt="0" data-sway="0.3" data-ch="CHAPTER 03" data-cap="罕见的平衡">
+        <div class="ch-head">
+          <span class="num">CHAPTER 03 — BALANCE</span>
+          <h2>规约与个性之间</h2>
+          <div class="work">简·奥斯丁的乡间婚恋小说 · 1811—1817</div>
+        </div>
+        <p class="dropcap">爱情是简·奥斯丁作品中的核心母题。她的几本小说基本都围绕着乡绅阶级的婚恋展开。在闯入一个外来青年都会成为大新闻的闭塞的乡村环境中，人与人彼此相识，道德规约与传统礼节的力量最容易渗入生活的方方面面，这也是奥斯丁作品中的底色。然而她总能在强大的传统规约与个人的爱情追求之间找到平衡，我们可以看到，她作品中最重要的那些女主人公——伊丽莎白、爱玛、芬妮及安妮，她们的爱情从来都是基于内心的喜爱，而非明面上门当户对（当然。在奥斯丁的故事中，这一点同样非常重要）。她们追求爱情或是选择伴侣的行为，必然与她们生来所具有的个性紧密相关，她们因灵魂的契合与生活的默契坠入爱河，如果不是自我那完善的个体，其爱情不会呈现出这样的样貌。而如果不是因为她们的爱情中刚好体现出对自由的热爱与重视，奥斯丁的小说也绝对无法风行如此之久——仅仅是乡间家长里短的世俗剧，不可能产生如此长盛不衰的影响力。</p>
+      </div>
+    </section>
+    <section class="chapter" id="ch-4" data-title="四 · 两个自我的战争">
+      <div class="step" data-tilt="5" data-sway="4" data-ch="CHAPTER 04" data-cap="摇摆，不定">
+        <div class="ch-head">
+          <span class="num">CHAPTER 04 — TWO EGOS</span>
+          <h2>两个自我的战争</h2>
+          <div class="work">司汤达《红与黑》 · 1830</div>
+        </div>
+        <p class="dropcap">司汤达的《红与黑》写作时间更晚，那是浪漫主义文学运动兴盛的时代，也是启蒙运动与大革命消歇的时代。故事中于连与玛蒂尔德的爱情，最鲜明地显示出“爱”与“自我”的关系，也显示出这样的爱情的危险之处。于连是一个法国外省贫民的儿子，虽然记《圣经》（因此为人尊重），热爱拿破仑与卢梭（但不想让人知道），他的英雄梦想就是来到巴黎、飞黄腾达。玛蒂尔德是贵族小姐，心高气傲，于连在她父亲手下做秘书。他们的爱情比起你情我愿的甜蜜故事，更像是一场战斗，比比谁的人格更有力量，谁更有勇气。司汤达曾将他们的爱情称作典型的“巴黎爱情”，或是“头脑的爱情”。这个词的意思是他们的爱情中有太多的幻想与虚构，并不触及真实的对方。放在“自我”与“爱情”的关系中而言，玛蒂尔德与于连的自我都非常强大，所以他们的爱情不像两个自我的融合，更像是两个自我的战斗，所以玛蒂尔德在于连上连后，会称于连为“我的主人”。他们的爱情毫无疑问是基于个人意志，也反抗着世俗的条条框框，但我们又能从中看到太多危险的因素，比如太多膨胀的“自我”，太过激烈的“自由”，最终他们不是爱上了彼此，而是产生了一种扭曲的爱。</p>
+      </div>
+      <div class="step" data-tilt="-4" data-sway="4" data-ch="CHAPTER 04" data-cap="自我的战争，天平的震荡">
+        <p>这些作品中，故事主人公对爱情的追求往往承载着他们对自由的向往，也与他们对“自我”的确证密不可分。罗密欧与朱丽叶的爱情是反抗家族的锁链；奥斯丁小说中男女主人公的爱情，是在传统的要求与个性的追求之间的平衡；而在《红与黑》中，于连与玛蒂尔德的爱情，更鲜明地体现出爱与“自我”的同构——于连常常将他在爱情上面的成功与世俗的成就结合起来，更反映出爱所承载的关于自我成就与自由实现的意义。但在《不能承受的生命之轻》中，我们已经能够明显地感受到爱情观念的巨大变化，在这里，爱情急绝对自由的反面，变成沉重的责任与羁绊，爱是“生命不可承受之重”，而如果寻求一种不被束缚的绝对自由，又变成了“不可承受之轻”。爱与自由之间，有着一些复杂而深刻的张力。</p>
+      </div>
+    </section>
+    <section class="chapter" id="ch-5" data-title="五 · 爱情的重，自由的轻">
+      <div class="step" data-tilt="-8" data-sway="1.0" data-ch="CHAPTER 05" data-cap="自我成就的爱情开始动摇">
+        <div class="ch-head">
+          <span class="num">CHAPTER 05 — WEIGHT</span>
+          <h2>爱情的重，自由的轻</h2>
+          <div class="work">《红与黑》的狱中之悟 · 《不能承受的生命之轻》</div>
+        </div>
+        <p class="dropcap">《红与黑》中于连共有两段爱情，前文提到他与玛蒂尔德的爱情，鲜明地反映出爱与自我的密切关系，他将与玛蒂尔德的爱情视作一种战争，与玛蒂尔德的关系充满了斗争，需要人格的力量和莫大的勇气。此外，爱情也成为了他英雄梦想与自我成就的一部分，与他自卑又巨大的外省青年意识混杂在一起，成了一个始终要向外界证明的东西，也成了一种表演。因此他们的爱情也是一种过度膨胀的自我表现。在《红与黑》里的另一段感情中，其实已经暗含了对这种过度自我的爱情的一些否定。于连死前在狱中经历了巨大的思想挣扎与转变，他因枪击过去的爱人雷纳夫人而入狱，但在入狱后，他最终意识到自己真正爱的是雷纳夫人。他回忆起曾经在乡下与雷纳夫人度过的那些与自我成就也许无关，但温馨甜蜜的日子。他开始追问究竟什么才是幸福，什么才是最重要的事情。他第一次意识到那种与英雄梦想紧密捆绑的爱情的虚幻性，他意识到一直以来自己周边都围绕着太多想象中的“别人”，这些别人作为有着身份地位优势的巴黎人的象征，不断加固他的自卑与自大。他不断助长着他飞黄腾达的野心。只有在死前，在狱中，他才终于意识到他与雷纳夫人的可爱、在某种程度上是超越“自我”的，雷纳夫人的爱有着自我牺牲的精神，她与追求自由关系不大。在此处，爱情与自我成就就不是统一的，而是呈现出深刻的矛盾。在真正的关乎他人的爱情中，于连意识到他一直以来追求的自我成就的表演性与虚伪性，他意识到自己的“自欺”，并在这种深刻的矛盾中走向死亡。</p>
+      </div>
+      <div class="step" data-tilt="-10" data-sway="0.8" data-ch="CHAPTER 05" data-cap="爱的一侧，开始下沉">
+        <p>司汤达在《红与黑》的结尾处才将这一深刻矛盾托出，而在昆德拉那里，关于爱情与自由之间张力的探讨，始终是《不能承受的生命之轻》的核心主题之一。在《红与黑》的结尾处，于连终于意识到与雷纳夫人的羁绊才是真正的爱情，这爱情是诚实的，与他的英雄梦想无关。而在《不能承受的生命之轻》里，昆德拉探讨的角度则有所不同，他既呈现出那种想象成太多的“自我”的爱的虚伪性，也论证了在某种生命情境下，那种关乎羁绊的爱同样是种难以忍受的负担。</p>
+      </div>
+      <div class="step" data-tilt="-14" data-sway="0.4" data-ch="CHAPTER 05" data-cap="不可承受之重">
+        <p>托马斯与特蕾莎的爱，是生命不可承受之重。托马斯是一个牙医，遇见特蕾莎之前，他信奉绝对自由的爱情，他用他的话来说，就是没有感情投入，也不干涉彼此的生活和自由的“性友谊”。但认识特蕾莎之后，他的准则被打破了，他们在小镇中偶然相遇，十多天后，她来布拉格看他，当晚他们做了爱，夜里特蕾莎发起高烧，在他家中待了一星期，他们很快生活在了一起。这在托马斯的准则中，无疑已经越过了“性友谊”的阶段，进入了爱情的领域。特蕾莎对托马斯的每一次不忠都表现得非常激烈，她用自我甚至自杀来表达痛苦。而托马斯虽同样对特蕾莎与其他男人的接触感到嫉妒，却又难以自控——次次不忠。他一面因特蕾莎过强的控制欲而感到窒息与束缚，但当特蕾莎离开他时，又无法忍受那种突然自由的轻盈，并因这突如其来的自由而痛苦，最终他不得不回到特蕾莎身边，这成为一种必然。</p>
+      </div>
+      <div class="step" data-tilt="-12" data-sway="0.5" data-ch="CHAPTER 05" data-cap="在轻盈与重之间摇摆">
+        <p>托马斯始终在自由的轻盈与爱情的重之间来回摇摆。托马斯与萨宾娜的爱，就是呈现出与前一种爱完全不同的样貌。萨宾娜是一个有着自由主义思想和反叛意识的摄影师。他们是典型的“性友谊”关系，不做承诺，也不期待对方的忠诚。这样的关系满足托马斯内心深深渴望爱情的重负，当他有了特蕾莎（也即有了责任的重负）之后，便无法再全身心体会这种自由的轻盈，因为他将始终背负着特蕾莎对忠诚的期待。</p>
+      </div>
+      <div class="step" data-tilt="-13" data-sway="0.5" data-ch="CHAPTER 05" data-cap="轻盈背后是深藏的痴情">
+        <p>那么萨宾娜是否就能够全然静心于这自由的轻盈呢？除了托马斯之外，书中还写了她与弗兰茨的浪漫关系。弗兰茨是一位西欧的大学教授，生活、经历、个性都与萨宾娜迥异。但萨宾娜作为一种异质性的存在，一种革命的激情，让他难以自拔。弗兰茨甚至为了萨宾娜结束了他长达二十年的婚姻。但当他结束了自己的婚姻之时，萨宾娜感受到了爱情之重的危险，并且下定决心离开了他，她只愿意从背叛走向背叛。但当她离开弗兰茨，来到巴黎，她是否感到了因自由而产生的幸福？事实上，她深陷忧伤，感到周边是一座废墟。而彻底的反叛背后，往往都是深藏的痴里。萨宾娜一辈子都在逃离家庭，逃离责任与爱的重负，但“两扇闪亮的房子后，生活着一个幸福的人家”，依旧是她内心深知其腐败，但却永恒的憧憬。</p>
+      </div>
+      <div class="step" data-tilt="-15" data-sway="0.4" data-ch="CHAPTER 05" data-cap="自由的结合，侵夺了自由">
+        <p>特蕾莎与托马斯的爱情，是现代社会对于浪漫爱情的一种典型的想象：浪漫的相遇，忠贞的许诺（特蕾莎要求托马斯忠诚，而托马斯也以此要求自己，尽管他并不能做到），现实的陪伴。他们的相遇结属偶然，而结合也绝非任何外在力量的强制，而是出于他们对彼此的意爱。这样的相恋故事似乎与前文提到的那些浪漫爱情并无不同，但这样的爱情最终变成了沉重的负担，出于自由意志的结合最终变成了对双方自由意志的侵夺。爱情最开始是由意志和反抗世俗规约的象征，为何到了昆德拉的笔下，变成了沉重的负担？</p>
+      </div>
+      <div class="step" data-tilt="-13" data-sway="0.5" data-ch="CHAPTER 05" data-cap="爱情如何持续，才是重头戏">
+        <p>或许可以给出一个俗浅的解释，因为那些小说描述的大多是婚姻之前的故事，浓墨重彩描染的是两个自由个体发现彼此的经过，而《不能承受的生命之轻》探讨爱情本身、关系本身，在这里，爱情如何发生只是故事的引子，爱情如何持续才是重头戏。在两个人的关系之中，互相适应改变，让重一部分自由，原本就是非常正常的事情。</p>
+      </div>
+    </section>
+    <section class="chapter" id="ch-6" data-title="六 · 背叛的轻盈">
+      <div class="step" data-tilt="10" data-sway="1.2" data-ch="CHAPTER 06" data-cap="轻盈重新升起">
+        <div class="ch-head">
+          <span class="num">CHAPTER 06 — KITSCH</span>
+          <h2>背叛的轻盈</h2>
+          <div class="work">萨宾娜与「媚俗」 · 《不能承受的生命之轻》</div>
+        </div>
+        <p class="dropcap">但除此之外，也必须承认，昆德拉对于爱情本身思考的重心也已经与之前提到的作品有了明显的不同，爱情与自由的冲突，或许此前并不被关注，但对于这一问题，这本书已经有了迴旋完整的回答。全书的第六部分“伟大的进军”中，我们可以读到萨宾娜对于这个问题的回答。她为什么不愿进入一种世俗意义的长久的爱情？因为那是她所终身反对的“媚俗”的一部分。“媚俗”是一种宏大的自我感动，就像弗兰茨出乎于和西欧国家都趋将东欧人民那些苦痛中的挣扎浪漫化，视其为“伟大的进军”一样，“媚俗”归根结底便是这样一种忽视了现实生活的种种复杂面貌，而将其一律化作浪漫的、美好的言说的意识，一种表演，一种被注视的渴望。这种“媚俗”的情感根本上可以被视作“合理化”，因而在生活中普遍存在。正如书中写到的，“媚俗总是人类境况的组成部分”，“媚俗根源就是对生命的绝对认同”。换句话说，“媚俗”的本质在于厌恶根源—生的生命存在而要被赋予可以言说的意义。因此，萨宾娜终其一生反抗“媚俗”，却也难以逃脱“媚俗”。毕竟她仍然存活在这个世界之中。萨宾娜的方式，便是唾弃一切合理化的言说，怀疑一切被美化的价值。</p>
+      </div>
+      <div class="step" data-tilt="13" data-sway="1.5" data-ch="CHAPTER 06" data-cap="轻盈，却同样无法承受">
+        <p>我们可以很轻易地发现，书中对于“媚俗”的反抗，背后其实是一种绝对自由的意识。从这个意义上来说，夹杂了过多意义与价值的“爱情”，当然是一种“媚俗”。曾经由经典小说建构起的“爱情”，在自由社会中越来越多地反思。我们很难再去相信罗密欧与朱丽叶的故事会发生在现实生活中；精于利益计算的现代人，会为《少年维特的烦恼》中燃烧一切的痴狂爱情所打动，但无法想象这样的事情会发生在自己身上。《少年维特的烦恼》曾在当时的德国年轻人中掀起了模仿的狂潮，这听上去就更加不可思议了。从绝对自由的基点出发，经典爱情故事中的许多元素，就不仅不再令人感动，还令人感到束缚，尤其是那些有关忠贞、依赖、永恒的期待与想象。而尽管现代人都颂赞爱情发生的美妙，企盼着那种激动人心的体验，却也没有人能解释，爱情的起因究竟是什么，说感觉太飘忽，说标准又太俗气。爱情美妙，仿佛只是因为这是爱情（这便体现了现代社会爱情所具有的宗教性质）。但事实上，我们都清楚，现实中所见到的亲密关系，或是在漫长岁月冲刷后只剩下无聊，或是充满了斗争、欺骗与剥夺。那种既尊重各自的自由，又能有深度的联结与支持的理想爱情，其实并不多见。</p>
+      </div>
+    </section>
+    <section class="chapter" id="ch-7" data-title="七 · 各自的孤独">
+      <div class="step" data-tilt="-3" data-sway="3" data-ch="CHAPTER 07" data-cap="自由与爱，如何共处？">
+        <div class="ch-head">
+          <span class="num">CHAPTER 07 — THE CITY</span>
+          <h2>各自的孤独</h2>
+          <div class="work">王家卫《重庆森林》 · 1994 ｜ 现代城市寓言</div>
+        </div>
+        <p class="dropcap">这便是自由社会中爱情面临的困境。我们总是既向往爱情，又珍视自由，但却发现，二者并不能和谐共存。王家卫的《重庆森林》曾以隐喻的方式呈现出这一困境。第二段故事里，王菲饰演的阿菲爱上了梁朝伟饰演的警察，但她表达爱的方式不是交流，而是偷偷潜进警官的家中，替他打扫卫生。当她打扫卫生时，她自由、快乐、舒适，反倒是在与警官的几次现实接触中，她显得局促不安、尴尬沉默。她仿佛不是爱上了警官，甚至不是爱上了警官的屋子（她做了如此多的改变，换了收音机里的歌，换掉了鱼，甚至换掉了公仔），而是爱上了那个在属于自己的空间里，放着《California Dreaming》，自由舞动的自己。只有自恋才能带来绝对自由。因此，当阿菲与警官即便真实地相遇时，她望着他们相约见面的“加州酒吧”外的重重雨幕，不由得思索，“真正的加州此刻是否阳光明媚？”她最终推迟了与警官的真实相遇，决定先去加州看个究竟。她要先面对自己，面对自己的想象。阿菲与警官的屋子就像现代人的爱情，看上去是我们“共同占有”，但实际上可能是“各自孤独”。只有真实相遇时，问题才真正出现：由与爱情，究竟如何共处？</p>
+      </div>
+      <div class="step" data-tilt="2" data-sway="3.5" data-ch="CHAPTER 07" data-cap="真爱成了珍稀的东西">
+        <p>正如“重庆森林”并非真正的丛林，而是城市的钢筋水泥。它所隐现的那种自由与爱情的矛盾，也带有鲜明的“城市”特征。现代城市中，人与人的纽带前所未有地贫化，这意味着便利，却也带来了某种缺失，人们越来越像是一个个原子。我们恪守着现代的行为准则，尽力不去触碰他人的边界，也小心维护着自身的孤独与自由。我们向往着比上一代人更高质量的亲密关系，但同时面临着更少的社交与更深的成备，任何一种亲密关系在这个时代都是更为稀缺的财富。另一方面，我们也面临着晚期资本主义时代高度密集的资本运转，资本的逻辑不仅深入社会生活的方方面面，也同样驯服了我们的内心。我们常常感到焦虑与压力的强迫，他人往往并不意味着一个值得探索的新世界，而是一个不知其善恶真伪的深渊，最终，我们无力承担一份需要高度情感付出的关系（且这种关系的未来是难以预知的），也没有勇气迈出分开的那一步，这既不经济，也不体面。所以我们要么完全臣服于短暂的欢愉与片刻的体验，不再追求深刻的联系——这同时意味着不再费心探寻另一个人的内心，彼此只是视觉的消费、肉体的享乐，要么回到保守的、未经反思的传统、秩序与安排中——一些城市年轻人在婚恋方面呈现出一种保守的态势，越来越多地主动寻求相亲、介绍，甚至父母的安排，便是这种意识的体现：如果自由同时带来了痛苦和艰难，那我便主动放弃吧。真爱便成了如此珍稀而宝贵的东西。</p>
+      </div>
+    </section>
+    <section class="chapter" id="ch-8" data-title="终 · 天平两端">
+      <div class="step" data-tilt="0" data-sway="6" data-ch="FINALE · 终" data-cap="竞逐，而非平衡">
+        <div class="ch-head">
+          <span class="num">FINALE — THE BALANCE</span>
+          <h2>天平两端</h2>
+          <div class="work">结语 · 竞逐而非平衡</div>
+        </div>
+        <p class="dropcap">最终，我们深刻感知了这样的矛盾：越是自由追寻自我的人，就越难忍受平庸的世俗化的爱情，也越难进入让自己满意到愿意让渡一部分自由的亲密关系。如果每个人的生命是一座井，探寻自我的过程就像是向下挖掘生命的深度，当你向下挖掘得越深，也就越难与他人产生勾连。但如果我们只是纯然孤独地向下挖掘，就根本无法确定，我们究竟是在探索生命的深度，还是在向着虚空徒劳地进军。真爱与自由仿佛被放在了天平的两端，又像是在跷跷板的两头，更多时候是竞逐，而非平衡。然而我们见过好的故事，有过好的理想，或者说，我们毕竟还带着如此的期待：更深处的相遇带来更沉实的喜悦</p>
+      </div>
+    </section>
+
+  </div><!-- /steps -->
+</div><!-- /story -->
+
+<!-- ================= INDEX ================= -->
+<section class="index-sec">
+  <span class="num reveal">INDEX — 作品脉络</span>
+  <h2 class="reveal">一条爱与自由的线索</h2>
+  <div class="tl">
+    <a href="#ch-1" class="reveal"><span class="era">12—13 世纪</span><span class="name">普罗旺斯游吟诗人「典雅爱情」<small>背德之爱 · 爱是双方的自由给予</small></span><span class="go">第一章 →</span></a>
+    <a href="#ch-1" class="reveal"><span class="era">1174</span><span class="name">《纯真爱情的艺术》<small>香槟女伯爵颁布 · 婚姻之内无爱</small></span><span class="go">第一章 →</span></a>
+    <a href="#ch-2" class="reveal"><span class="era">约 1595</span><span class="name">莎士比亚《罗密欧与朱丽叶》<small>我借着爱的轻翼飞过围墙</small></span><span class="go">第二章 →</span></a>
+    <a href="#ch-3" class="reveal"><span class="era">1811—1817</span><span class="name">简·奥斯丁的乡间婚恋小说<small>传统规约与个性追求之间的平衡</small></span><span class="go">第三章 →</span></a>
+    <a href="#ch-4" class="reveal"><span class="era">1830</span><span class="name">司汤达《红与黑》<small>两个自我的战争 · 头脑的爱情</small></span><span class="go">第四章 →</span></a>
+    <a href="#ch-5" class="reveal"><span class="era">1984</span><span class="name">米兰·昆德拉《不能承受的生命之轻》<small>爱情的重 · 媚俗 · 背叛的轻盈</small></span><span class="go">第五、六章 →</span></a>
+    <a href="#ch-7" class="reveal"><span class="era">1994</span><span class="name">王家卫《重庆森林》<small>共同占有，还是各自孤独</small></span><span class="go">第七章 →</span></a>
+  </div>
+</section>
+
+<!-- ================= COLOPHON ================= -->
+<footer class="colophon">
+  <p class="big reveal">是重真的残酷，<br>而<span class="accent">轻</span>便真的美丽？</p>
+  <p class="note reveal">文摘收集 · 原文《天平两端的爱与自由》 闫力元<br>本页为个人阅读收藏而制 · 滚动时，请注意天平</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- scale physics ---------- */
+  var CX=200, CY=120, L=124, HANG=0; // pivot & beam half-length
+  var beam = document.getElementById("beam");
+  var panL = document.getElementById("panL");
+  var panR = document.getElementById("panR");
+  var needle = document.getElementById("needle");
+  var ssCh = document.getElementById("ss-ch");
+  var ssCap = document.getElementById("ss-cap");
+
+  var target = {tilt:0, sway:0.6};
+  var cur = 0, swayPhase = 0;
+
+  function render(angle){
+    var rad = angle*Math.PI/180;
+    var cos = Math.cos(rad), sin = Math.sin(rad);
+    beam.setAttribute("transform","rotate("+angle+" "+CX+" "+CY+")");
+    var lx = CX - L*cos, ly = CY - L*sin;
+    var rx = CX + L*cos, ry = CY + L*sin;
+    panL.setAttribute("transform","translate("+lx+" "+ly+")");
+    panR.setAttribute("transform","translate("+rx+" "+ry+")");
+    if(needle) needle.style.transform = "translateX("+(-angle*3)+"px)";
+  }
+
+  if(reduce){
+    var raf_on=false;
+    setInterval(function(){ cur += (target.tilt-cur)*0.2; render(cur); }, 100);
+  } else {
+    var last = performance.now();
+    (function loop(now){
+      var dt = Math.min(50, now-last); last = now;
+      // critically damped-ish approach
+      cur += (target.tilt - cur) * 0.045;
+      swayPhase += dt * 0.0011;
+      var sway = Math.sin(swayPhase*2.1) * target.sway * 0.5
+               + Math.sin(swayPhase*3.7+1.3) * target.sway * 0.3;
+      render(cur + sway);
+      requestAnimationFrame(loop);
+    })(last);
+  }
+
+  /* ---------- scroll steps ---------- */
+  var steps = Array.prototype.slice.call(document.querySelectorAll(".step"));
+  var chapters = Array.prototype.slice.call(document.querySelectorAll(".chapter"));
+
+  // build rail
+  var rail = document.getElementById("rail");
+  chapters.forEach(function(ch){
+    var a = document.createElement("a");
+    a.href = "#"+ch.id;
+    a.dataset.for = ch.id;
+    a.innerHTML = "<i></i><span>"+ch.dataset.title+"</span>";
+    rail.appendChild(a);
+  });
+
+  var activeStep = null;
+  var capTimer = null;
+
+  function setActive(s){
+    if(activeStep === s) return;
+    activeStep = s;
+    target.tilt = parseFloat(s.dataset.tilt||"0");
+    target.sway = parseFloat(s.dataset.sway||"0.5");
+    var ch = s.dataset.ch, cap = s.dataset.cap;
+    if(ssCh.textContent !== ch || ssCap.textContent !== cap){
+      ssCap.style.opacity = 0;
+      if(capTimer) clearTimeout(capTimer);
+      capTimer = setTimeout(function(){
+        ssCh.textContent = ch; ssCap.textContent = cap;
+        ssCap.style.opacity = 1;
+      }, 250);
+    }
+  }
+
+  // 以视口中线为准：中线穿过哪个 step，哪个就是激活项
+  function pickActive(){
+    var mid = window.innerHeight * 0.5;
+    var best = null, bestDist = Infinity;
+    for(var i=0;i<steps.length;i++){
+      var r = steps[i].getBoundingClientRect();
+      if(r.bottom < 0 || r.top > window.innerHeight) continue;
+      var d = (r.top <= mid && r.bottom >= mid) ? 0
+            : Math.min(Math.abs(r.top - mid), Math.abs(r.bottom - mid));
+      if(d < bestDist){ bestDist = d; best = steps[i]; }
+    }
+    if(best) setActive(best);
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) e.target.classList.add("in");
+    });
+    pickActive();
+  }, {rootMargin:"-8% 0px -8% 0px", threshold:0});
+  steps.forEach(function(s){ io.observe(s); });
+
+  /* ---------- chapter rail active ---------- */
+  var railLinks = Array.prototype.slice.call(rail.querySelectorAll("a"));
+  var ioCh = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        railLinks.forEach(function(a){
+          a.classList.toggle("on", a.dataset.for === e.target.id);
+        });
+      }
+    });
+  }, {rootMargin:"-30% 0px -60% 0px", threshold:0});
+  chapters.forEach(function(c){ ioCh.observe(c); });
+
+  /* ---------- generic reveal ---------- */
+  var ioR = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); ioR.unobserve(e.target);} });
+  }, {rootMargin:"0px 0px -12% 0px", threshold:0});
+  document.querySelectorAll(".reveal").forEach(function(el){ ioR.observe(el); });
+
+  /* ---------- progress ---------- */
+  var line = document.getElementById("progress-line");
+  var pct = document.getElementById("pct");
+  var ticking = false;
+  function onScroll(){
+    if(ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      var h = document.documentElement;
+      var p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      p = Math.max(0, Math.min(1, p||0));
+      line.style.width = (p*100)+"%";
+      pct.textContent = Math.round(p*100);
+      pickActive();
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+  pickActive();
+})();
+</script>
+</body>
+</html>
